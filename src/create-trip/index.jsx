@@ -168,7 +168,8 @@ function CreateTrip() {
                 key={index}
                 onClick={() => handleInputChange("budget", item.title)}
                 className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${
-                  formData?.budget == item.title && "shadow-lg border-black"
+                  formData?.budget == item.title &&
+                  "shadow-lg border-black dark:border-white"
                 }`}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
@@ -189,7 +190,8 @@ function CreateTrip() {
                 key={index}
                 onClick={() => handleInputChange("traveler", item.people)}
                 className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${
-                  formData?.traveler == item.people && "shadow-lg border-black"
+                  formData?.traveler == item.people &&
+                  "shadow-lg border-black dark:border-white"
                 }`}
               >
                 <h2 className="text-4xl">{item.icon}</h2>
@@ -216,10 +218,10 @@ function CreateTrip() {
           <DialogHeader>
             <DialogDescription>
               <img
-                src="/logo.svg"
+                src="/logo.png"
                 alt="logo"
                 width="100px"
-                className="items-center"
+                className="mx-auto"
               />
               <h2 className="font-bold text-lg">
                 Sign In to check out your travel plan

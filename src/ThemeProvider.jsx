@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme")
     const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: light)"
     ).matches
     const initial = savedTheme || (systemPrefersDark ? "dark" : "light")
 
