@@ -53,7 +53,6 @@ const GeoapifyAutocomplete = ({ apiKey, selectProps }) => {
     <Select
       styles={customStyles}
       {...selectProps}
-      // ❌ Remove inputValue from here
       onInputChange={(value, { action }) => {
         if (action === "input-change") {
           setInputValue(value)
