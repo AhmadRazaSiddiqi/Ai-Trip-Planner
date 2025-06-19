@@ -51,6 +51,8 @@ const GeoapifyAutocomplete = ({ apiKey, selectProps }) => {
 
   return (
     <Select
+      menuIsOpen={true}
+      styles={customStyles}
       {...selectProps}
       // ❌ Remove inputValue from here
       onInputChange={(value, { action }) => {
@@ -75,3 +77,24 @@ const GeoapifyAutocomplete = ({ apiKey, selectProps }) => {
 }
 
 export default GeoapifyAutocomplete
+
+const customStyles = {
+  control: (base) => ({
+    ...base,
+    backgroundColor: "#fff",
+    borderColor: "#d1d5db",
+    borderRadius: "0.5rem",
+    minHeight: "40px",
+    boxShadow: "none",
+    ":hover": {
+      borderColor: "#000",
+    },
+  }),
+  option: (base, state) => ({
+    ...base,
+    backgroundColor: state.isFocused ? "#f3f4f6" : "#fff",
+    color: "#000",
+    fontSize: "14px",
+    padding: "10px 15px",
+  }),
+}

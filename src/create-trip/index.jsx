@@ -26,11 +26,8 @@ import GeoapifyAutocomplete from "@/view-trip/components/LocationIQAutocomplete 
 function CreateTrip() {
   const [place, setPlace] = useState()
   const [formData, setFormData] = useState([])
-
   const [openDialog, setOpenDialog] = useState(false)
-
   const [loading, setLoading] = useState(false)
-
   const navigate = useNavigate()
 
   const handleInputChange = (name, value) => {
@@ -38,6 +35,15 @@ function CreateTrip() {
       ...formData,
       [name]: value,
     })
+  }
+
+  const calculateProgress = () => {
+    let progress = 0
+    if (formData.location) progress += 1
+    if (formData.noOfDays) progress += 1
+    if (formData.budget) progress += 1
+    if (formData.traveler) progress += 1
+    return (progress / 4) * 100
   }
 
   useEffect(() => {
@@ -72,8 +78,6 @@ function CreateTrip() {
       .replace("{budget}", formData?.budget)
       .replace("{totalDays}", formData?.noOfDays)
 
-    // console.log(FINAL_PROMPT)
-
     const result = await chatSession.sendMessage(FINAL_PROMPT)
     console.log(result?.response?.text())
     setLoading(false)
@@ -84,7 +88,6 @@ function CreateTrip() {
     setLoading(true)
     const user = JSON.parse(localStorage.getItem("user"))
     const docId = Date.now().toString()
-    // Add a new document in collection "AITrips"
     await setDoc(doc(db, "AITrips", docId), {
       userSelection: formData,
       tripData: JSON.parse(TripData),
@@ -124,6 +127,19 @@ function CreateTrip() {
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 px-5 mt-10">
+      {/* ✅ PROGRESS BAR */}
+      <div className="mb-4">
+        <div className="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+          <div
+            className="bg-black dark:bg-gray-500 h-full transition-all duration-500"
+            style={{ width: `${calculateProgress()}%` }}
+          />
+        </div>
+        <p className="text-sm text-right text-gray-600 mt-1 dark:text-white">
+          {calculateProgress()}% completed
+        </p>
+      </div>
+
       <h2 className="font-bold text-3xl">Your Dream Trip Starts Here 🗺️✨</h2>
       <p className="mt-3 text-gray-500 text-xl">
         Tell us what excites you most about travel, and we'll create a custom
@@ -136,7 +152,7 @@ function CreateTrip() {
             Pick your perfect destination 📍
           </h2>
           <GeoapifyAutocomplete
-            apiKey={import.meta.env.VITE_Geoapify_API_KEY} // Get from Geoapify (free)
+            apiKey={import.meta.env.VITE_Geoapify_API_KEY}
             selectProps={{
               value: place,
               onChange: (v) => {
