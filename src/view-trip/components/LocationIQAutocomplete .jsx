@@ -51,7 +51,6 @@ const GeoapifyAutocomplete = ({ apiKey, selectProps }) => {
 
   return (
     <Select
-      menuIsOpen={true}
       styles={customStyles}
       {...selectProps}
       // ❌ Remove inputValue from here
